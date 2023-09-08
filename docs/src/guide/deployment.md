@@ -18,7 +18,6 @@
 [json]: /config/#shared-configuration-file-📄
 [publicOutputDir]: /config/#publicoutputdir
 [installation]: /guide/#setup-%F0%9F%93%A6
-[nodejs buildpack]: https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-nodejs
 [ruby buildpack]: https://elements.heroku.com/buildpacks/heroku/heroku-buildpack-ruby
 [skip pruning]: https://devcenter.heroku.com/articles/nodejs-support#skip-pruning
 [capistrano-rails]: https://github.com/capistrano/rails
@@ -134,29 +133,12 @@ such as `keep_assets` and `assets_roles`.
 
 ## Using Heroku
 
-In order to deploy to Heroku, it's necessary to add the [nodejs][nodejs buildpack] and [ruby][ruby buildpack] buildpacks.
-
-Make sure that the ruby buildpack [appears last](https://devcenter.heroku.com/articles/using-multiple-buildpacks-for-an-app#viewing-buildpacks) to ensure the proper defaults are applied.
-
-```
-$ heroku buildpacks
-=== pingcrm-vite Buildpack URLs
-1. heroku/nodejs
-2. heroku/ruby
-```
+In order to deploy to Heroku, it's necessary to add the [ruby][ruby buildpack] buildpack.
 
 If you are starting from scratch, you achieve that by running:
 
 ```bash
 heroku buildpacks:set heroku/ruby
-heroku buildpacks:add --index 1 heroku/nodejs
 ```
-
-When precompiling assets in Heroku, it's better to _[skip pruning]_ of [dev dependencies] by setting:
-```bash
-heroku config:set NPM_CONFIG_INCLUDE='dev' YARN_PRODUCTION=false
-# or NPM_CONFIG_PRODUCTION=false in versions of npm < 7
-```
-That will ensure that [vite] and [vite-plugin-ruby] are available, along with other build tools.
 
 If you are looking for example setups, check out this [Vue app][example1] and its [live demo][heroku1], or this very [simple app][example2] and its [live demo][heroku2].
